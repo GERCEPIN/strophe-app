@@ -1,0 +1,162 @@
+/* ============================================================
+   STROPHE — Design Tokens
+   Dark, disciplined, premium. No confetti, no cartoon mascots.
+   Signature motif: the rising spiral (see components/LevelSpiral.tsx),
+   echoing strophe (στροφή) — a turn — from the brand's own etymology.
+   ============================================================ */
+:root {
+  --bg: #0b0b0f;
+  --surface: #16151c;
+  --surface-raised: #1e1d26;
+  --border: #2a2933;
+  --text: #f2f0ea;
+  --text-dim: #a7a4b0;
+  --gold: #c9a24b;
+  --gold-dim: #8a7238;
+  --signal-critical: #b23b3b;
+  --signal-good: #4f8a6b;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.screen {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #0b0b0f;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.field input,
+.field textarea {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+.banner-warning {
+  border: 1px solid var(--signal-critical);
+  background: rgba(178, 59, 59, 0.12);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+}
