@@ -31,7 +31,7 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
 | 4 | Memory Vault (spaced repetition) | Selesai | `lib/engine/spacedRepetition.ts`, `api/memory-vault/*`, `app/skill/daya-ingat` |
-| 5 | Latihan daya ingat & logika bertahap | Sebagian — 5 teknik memori nyata sudah ada (`content/memoryVaultLevels.ts`), puzzle logika terpisah belum | Tambahkan konten puzzle logika sebagai tabel baru atau halaman statis terpisah |
+| 5 | Latihan daya ingat & logika bertahap | Selesai | Memory Vault: `content/memoryVaultLevels.ts` (5 teknik memori). Puzzle Logika: `content/logicPuzzles.ts` (15 puzzle, 5 level), `app/puzzle-logika` — halaman statis interaktif, tanpa DB/AI |
 | 6 | Cross-Skill Insight Engine | Selesai | `lib/ai/prompts/crossSkillInsight.ts`, `api/cross-skill/route.ts`, `app/cross-skill` — live AI (tidak dipersist), fetch ulang setiap klik |
 
 ### C. Komunikasi & Percaya Diri
