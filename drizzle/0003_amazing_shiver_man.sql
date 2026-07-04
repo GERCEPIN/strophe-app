@@ -1,0 +1,1 @@
+ALTER TYPE "public"."mentor_persona" ADD VALUE 'diamond_tegas';

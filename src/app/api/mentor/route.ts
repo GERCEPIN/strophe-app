@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db/client";
-import { aiMessages, mentorAssignments } from "@/db/schema";
+import { aiMessages, mentorAssignments, diamondCheckpoints } from "@/db/schema";
 import { eq, and, asc, desc } from "drizzle-orm";
 import { z } from "zod";
 import { requireUser } from "@/lib/auth/requireUser";
@@ -16,6 +16,7 @@ const VALID_PERSONAS: MentorPersonaKey[] = [
   "ketekunan_jerman",
   "harmoni_nordik",
   "ketegasan_korea",
+  "diamond_tegas",
 ];
 
 function isValidPersona(p: unknown): p is MentorPersonaKey {
@@ -33,16 +34,24 @@ export async function GET() {
     .orderBy(asc(aiMessages.createdAt))
     .limit(50);
 
-  const [latestAssignment] = await db
-    .select()
-    .from(mentorAssignments)
-    .where(eq(mentorAssignments.userId, session.userId))
-    .orderBy(desc(mentorAssignments.assignedAt))
-    .limit(1);
+  const [[latestAssignment], checkpointRows] = await Promise.all([
+    db
+      .select()
+      .from(mentorAssignments)
+      .where(eq(mentorAssignments.userId, session.userId))
+      .orderBy(desc(mentorAssignments.assignedAt))
+      .limit(1),
+    db
+      .select({ id: diamondCheckpoints.id })
+      .from(diamondCheckpoints)
+      .where(eq(diamondCheckpoints.userId, session.userId))
+      .limit(1),
+  ]);
 
   return NextResponse.json({
     history,
     currentPersona: latestAssignment?.persona ?? "netral",
+    hasDiamondUnlock: checkpointRows.length > 0,
   });
 }
 
@@ -61,6 +70,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Pesan tidak valid" }, { status: 400 });
   }
   const { message, persona: rawPersona } = parsed.data;
+
+  // Diamond Tegas persona is gated behind having at least one Diamond Checkpoint.
+  if (rawPersona === "diamond_tegas") {
+    const rows = await db
+      .select({ id: diamondCheckpoints.id })
+      .from(diamondCheckpoints)
+      .where(eq(diamondCheckpoints.userId, session.userId))
+      .limit(1);
+    if (rows.length === 0) {
+      return NextResponse.json(
+        { error: "Diamond Mentor hanya tersedia setelah kamu mencapai Diamond Checkpoint pertama (level 50)." },
+        { status: 403 }
+      );
+    }
+  }
 
   // If a persona is provided and valid, upsert the mentorAssignments row
   const newPersona = isValidPersona(rawPersona) ? rawPersona : null;

@@ -11,7 +11,8 @@ type PersonaKey =
   | "keberanian_barat"
   | "ketekunan_jerman"
   | "harmoni_nordik"
-  | "ketegasan_korea";
+  | "ketegasan_korea"
+  | "diamond_tegas";
 
 const PERSONA_LABELS: Record<PersonaKey, string> = {
   netral: "Netral",
@@ -20,9 +21,17 @@ const PERSONA_LABELS: Record<PersonaKey, string> = {
   ketekunan_jerman: "Ketekunan (Jerman)",
   harmoni_nordik: "Harmoni (Nordik)",
   ketegasan_korea: "Ketegasan (Korea)",
+  diamond_tegas: "Tegas (Diamond)",
 };
 
-const PERSONAS = Object.keys(PERSONA_LABELS) as PersonaKey[];
+const BASE_PERSONAS: PersonaKey[] = [
+  "netral",
+  "disiplin_jepang",
+  "keberanian_barat",
+  "ketekunan_jerman",
+  "harmoni_nordik",
+  "ketegasan_korea",
+];
 
 interface Message {
   role: "user" | "assistant";
@@ -32,6 +41,7 @@ interface Message {
 export default function MentorPage() {
   const [history, setHistory] = useState<Message[]>([]);
   const [persona, setPersona] = useState<PersonaKey>("netral");
+  const [hasDiamondUnlock, setHasDiamondUnlock] = useState(false);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState("");
@@ -43,6 +53,7 @@ export default function MentorPage() {
       .then((d) => {
         if (d.history) setHistory(d.history);
         if (d.currentPersona) setPersona(d.currentPersona as PersonaKey);
+        if (d.hasDiamondUnlock) setHasDiamondUnlock(true);
       })
       .catch(() => {});
   }
@@ -116,7 +127,7 @@ export default function MentorPage() {
             Pilih Gaya Mentor
           </p>
           <div className="flex flex-wrap gap-2">
-            {PERSONAS.map((p) => (
+            {BASE_PERSONAS.map((p) => (
               <button
                 key={p}
                 onClick={() => setPersona(p)}
@@ -129,6 +140,26 @@ export default function MentorPage() {
                 {PERSONA_LABELS[p]}
               </button>
             ))}
+            {/* Diamond Mentor — unlocked after first Diamond Checkpoint */}
+            {hasDiamondUnlock ? (
+              <button
+                onClick={() => setPersona("diamond_tegas")}
+                className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+                  persona === "diamond_tegas"
+                    ? "bg-[var(--strophe-diamond)]/20 border-[var(--strophe-diamond)] text-[var(--strophe-diamond)]"
+                    : "border-[var(--strophe-diamond)]/40 text-[var(--strophe-diamond)] hover:border-[var(--strophe-diamond)]"
+                }`}
+              >
+                Tegas (Diamond) ◆
+              </button>
+            ) : (
+              <span
+                title="Selesaikan Diamond Checkpoint pertama (level 50) untuk membuka persona ini."
+                className="text-xs px-3 py-1.5 rounded-full border border-[var(--strophe-border)] text-[var(--strophe-text-faint)] cursor-not-allowed select-none"
+              >
+                Tegas (Diamond) ◆ Terkunci
+              </span>
+            )}
           </div>
         </Card>
 

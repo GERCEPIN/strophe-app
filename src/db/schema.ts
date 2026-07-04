@@ -76,6 +76,7 @@ export const mentorPersonaEnum = pgEnum("mentor_persona", [
   "ketekunan_jerman",
   "harmoni_nordik",
   "ketegasan_korea",
+  "diamond_tegas",
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────
