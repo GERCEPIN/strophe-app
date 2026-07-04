@@ -62,7 +62,7 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 |---|---|---|---|
 | 18 | Global Mentor Rotation | Selesai | `lib/ai/prompts/globalMentor.ts`, `api/mentor/route.ts` (streaming, persists ke `aiMessages`), `app/mentor` — 6 persona + selector |
 | 19 | Bahasa & Peribahasa Dunia | Selesai (konten statis) | `app/peribahasa/page.tsx` — 20 peribahasa dari 15+ budaya, dikurasi manual, tanpa AI (mencegah risiko halusinasi atribusi) |
-| 20 | Skenario Lintas Budaya | Belum ada | Mirip Insting Scenario tapi dengan konteks budaya — reuse pola `instingScenario.ts` dengan parameter `culturalContext`. Bisa simpan di `instingScenarios` dengan flag baru, atau tabel terpisah. |
+| 20 | Skenario Lintas Budaya | Selesai | `lib/ai/prompts/crossCulturalScenario.ts` (8 konteks budaya), `api/lintas-budaya/scenario/route.ts`, `app/lintas-budaya` — kolom `culturalContext` di `instingScenarios`, submit reuse `/api/insting/submit` |
 | 21 | World Perspective Log | Selesai | `api/world-perspective/route.ts` (GET/POST, tanpa AI), `app/perspektif` |
 
 ### G. Refleksi & Jangka Panjang
