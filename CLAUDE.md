@@ -24,75 +24,75 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
 | 1 | AI Insting Trainer | Selesai | `api/insting/scenario`, `api/insting/submit`, `components/InstingTrainer.tsx` |
-| 2 | Insting Speed Log (grafik mingguan) | Sebagian — API selesai, belum ada chart UI | `api/insting/speed-log/route.ts` — perlu komponen chart (bisa pakai `recharts`) yang fetch endpoint ini dan render sebagai line chart |
+| 2 | Insting Speed Log (grafik mingguan) | Selesai | `api/insting/speed-log/route.ts`, `components/InstingSpeedChart.tsx` (recharts dual-axis: waktu keputusan + akurasi) |
 | 3 | Reverse Level (Uji Nyali) | Selesai, termasuk limit 1x/minggu | `api/insting/scenario/route.ts` fungsi `reverseLevelUsedThisWeek` |
 
 ### B. Daya Ingat & Kecerdasan
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
 | 4 | Memory Vault (spaced repetition) | Selesai | `lib/engine/spacedRepetition.ts`, `api/memory-vault/*`, `app/skill/daya-ingat` |
-| 5 | Latihan daya ingat & logika bertahap | Sebagian — 5 teknik memori nyata sudah ada (`content/memoryVaultLevels.ts`), puzzle logika terpisah belum |
-| 6 | Cross-Skill Insight Engine | Belum ada — perlu tabel baru + AI yang membaca progres lintas track dan cari korelasi. Mulai dari query `getAllTrackProgress` yang sudah ada di `levelProgressService.ts` |
+| 5 | Latihan daya ingat & logika bertahap | Sebagian — 5 teknik memori nyata sudah ada (`content/memoryVaultLevels.ts`), puzzle logika terpisah belum | Tambahkan konten puzzle logika sebagai tabel baru atau halaman statis terpisah |
+| 6 | Cross-Skill Insight Engine | Selesai | `lib/ai/prompts/crossSkillInsight.ts`, `api/cross-skill/route.ts`, `app/cross-skill` — live AI (tidak dipersist), fetch ulang setiap klik |
 
 ### C. Komunikasi & Percaya Diri
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 7 | Voice Confidence Check | Schema saja (`voiceConfidenceChecks`) | Butuh keputusan produk: rekam via browser (MediaRecorder API) lalu kirim transcript ke model lewat OpenRouter, atau pakai Web Speech API browser untuk transcribe di client. Diskusikan dulu sebelum membangun — ada trade-off privasi (audio user) yang perlu keputusan sadar. |
-| 8 | Public Speaking Trainer | Schema saja (`publicSpeakingSessions`) | Sama seperti #7 — butuh transcript dulu |
-| 9 | Latihan bahasa tubuh | Belum ada schema/API | Kemungkinan cukup berupa checklist instruksi statis (seperti Sesi Inti), tidak perlu AI |
-| 10 | English Shadow Mode | Schema saja (`englishShadowSessions`) | Sama seperti #7/#8 |
+| 7 | Voice Confidence Check | Schema saja (`voiceConfidenceChecks`) — **skip sampai ada keputusan produk** | Butuh keputusan: MediaRecorder API + OpenRouter, atau Web Speech API browser. Ada trade-off privasi audio yang perlu keputusan sadar. |
+| 8 | Public Speaking Trainer | Schema saja (`publicSpeakingSessions`) — **skip sampai ada keputusan produk** | Sama seperti #7 — butuh transcript dulu |
+| 9 | Latihan bahasa tubuh | Selesai (halaman statis) | `app/bahasa-tubuh/page.tsx` — 5 area checklist statis (kontak mata, postur, tangan, ekspresi, jarak), tidak butuh AI/DB |
+| 10 | English Shadow Mode | Schema saja (`englishShadowSessions`) — **skip sampai ada keputusan produk** | Sama seperti #7/#8 |
 
 ### D. Disiplin & Konsistensi
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
 | 11 | Streak Ganas | Selesai, diuji lengkap | `lib/engine/streak.ts`, `lib/services/mentalScoreService.ts` |
 | 12 | Panic Button Anti-Menyerah | Selesai | `lib/engine/streak.ts` fungsi `shouldShowPanicButton`, ditampilkan di `app/dashboard/page.tsx` |
-| 13 | Silent Mode Progress (notifikasi) | Belum ada | Butuh Web Push API + service worker (di luar scope Next.js biasa) — kalau di-deploy sebagai PWA, ini bisa ditambah belakangan |
+| 13 | Silent Mode Progress (notifikasi) | Belum ada — **butuh keputusan arsitektur** | Butuh Web Push API + service worker (di luar scope Next.js biasa). Bisa ditambah kalau app di-deploy sebagai PWA. |
 
 ### E. Wawasan & Skill Baru
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 14 | Skill Radar | Schema saja (`skillRadarSuggestions`) | Butuh AI prompt baru di `lib/ai/prompts/` yang membaca `getAllTrackProgress` + jawaban user, lalu rekomendasi skill. Pola sama seperti `journal/route.ts` (AI call sinkron setelah aksi user). |
-| 15 | Skill Combo Unlock | Schema saja (`skillComboUnlocks`) | Perlu aturan eksplisit "kombinasi level X di track A + level Y di track B = unlock boss level track C" — sebaiknya pure function di `lib/engine/` dulu (mudah ditest) sebelum di-wire ke DB |
-| 16 | Real-Life Mission | Schema saja (`realLifeMissions`) | CRUD sederhana: AI generate misi (mirip pola `insting/scenario`), user lapor hasil |
-| 17 | Zona Nyaman Breaker | Field `category` sudah ada di `realLifeMissions` | Bagian dari #16 — set `category: "zona_nyaman_breaker"` saat generate |
+| 14 | Skill Radar | Selesai | `lib/ai/prompts/skillRadar.ts`, `api/skill-radar/route.ts`, `app/skill-radar` — AI rekomendasikan track mana yang perlu difokuskan |
+| 15 | Skill Combo Unlock | Selesai | `lib/engine/skillCombo.ts` (5 COMBO_RULES, pure function, 7 tests), `api/skill-combo/route.ts` (auto-insert unlock baru), `app/skill-combo` |
+| 16 | Real-Life Mission | Selesai | `lib/ai/prompts/realLifeMission.ts`, `api/mission/route.ts` (GET/POST/PATCH), `app/misi` |
+| 17 | Zona Nyaman Breaker | Selesai (bagian dari #16) | `api/mission/route.ts` — set `category: "zona_nyaman_breaker"` saat POST dengan `isZonaNyamanBreaker: true` |
 
 ### F. Perspektif & Wawasan Luas
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 18 | Global Mentor Rotation | Prompt personas selesai (`lib/ai/prompts/globalMentor.ts`), belum dipasang ke fitur chat mana pun | Paling gampang: tambahkan pilihan mentor ke Investor Coach ATAU jadi mentor umum baru dengan chat sendiri, pola sama seperti `investor/chat/route.ts` |
-| 19 | Bahasa & Peribahasa Dunia | Belum ada | Bisa jadi konten statis (seperti `content/`) — kumpulan peribahasa yang dihubungkan ke level tertentu, TIDAK perlu AI (menghindari risiko halusinasi soal atribusi budaya) |
-| 20 | Skenario Lintas Budaya | Belum ada | Mirip Insting Scenario tapi dengan konteks budaya berbeda — bisa reuse pola `instingScenario.ts` |
-| 21 | World Perspective Log | Schema saja (`worldPerspectiveLogs`) | CRUD sederhana, mirip `journal/route.ts` tapi tanpa perlu AI (cukup catatan user) |
+| 18 | Global Mentor Rotation | Selesai | `lib/ai/prompts/globalMentor.ts`, `api/mentor/route.ts` (streaming, persists ke `aiMessages`), `app/mentor` — 6 persona + selector |
+| 19 | Bahasa & Peribahasa Dunia | Selesai (konten statis) | `app/peribahasa/page.tsx` — 20 peribahasa dari 15+ budaya, dikurasi manual, tanpa AI (mencegah risiko halusinasi atribusi) |
+| 20 | Skenario Lintas Budaya | Belum ada | Mirip Insting Scenario tapi dengan konteks budaya — reuse pola `instingScenario.ts` dengan parameter `culturalContext`. Bisa simpan di `instingScenarios` dengan flag baru, atau tabel terpisah. |
+| 21 | World Perspective Log | Selesai | `api/world-perspective/route.ts` (GET/POST, tanpa AI), `app/perspektif` |
 
 ### G. Refleksi & Jangka Panjang
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
 | 22 | Decision Journal Otomatis | Selesai | `api/journal/route.ts`, `app/journal` |
-| 23 | Kompas 5 Tahun | Simpan/lihat selesai, "cek keselarasan tiap 20 level" belum ada trigger otomatis | Tambahkan pengecekan `isMultipleOfLevel(level, 20)` di `core-session/route.ts` (pola sama seperti `isReflectionLevel`), lalu panggil AI untuk bandingkan progres vs `visi5Tahun` |
-| 24 | Reflection Level | Deteksi level kelipatan 10 sudah ada (`isReflectionLevel` di response `core-session`), tapi belum ada halaman untuk isi refleksinya | Tambah `app/reflection/page.tsx` + `api/reflection/route.ts` pakai tabel `reflectionLogs` yang sudah ada |
-| 25 | Future Self Simulator | Prompt selesai (`lib/ai/prompts/futureSelfSimulator.ts`), API/UI belum | Buat `api/future-self/route.ts` yang kumpulkan progress summary (pakai `getAllTrackProgress` + `getCurrentMentalScore`), panggil prompt, simpan ke `futureSelfSimulations` |
-| 26 | Brutal Honesty Report | Prompt selesai (`lib/ai/prompts/brutalHonesty.ts`), API/UI belum | Perlu agregasi data mingguan dulu (completion rate, mental score trend) — JANGAN biarkan AI mengarang angka, hitung dulu di kode baru masukkan ke prompt sebagai `weeklyDataSummary` |
-| 27 | Blueprint 1-5-10 Tahun | Selesai (bagian dari Kompas) | `app/kompas/page.tsx`, field `blueprintBisnis` |
-| 28 | Kematangan Kepribadian | Belum ada | Mirip Reflection Level tapi bulanan dan fokus ke pola keputusan — bisa query `decisionJournalEntries` dari 30 hari terakhir dan minta AI bandingkan dengan 30 hari sebelumnya |
+| 23 | Kompas 5 Tahun | Selesai | `app/kompas`, `api/onboarding`. Alignment check tiap 20 level sudah ada di `api/core-session/route.ts` — trigger AI note non-fatal saat POST level kelipatan 20, ditampilkan di `app/sesi-inti` |
+| 24 | Reflection Level | Selesai | `api/reflection/route.ts` (GET/POST), `app/reflection` — form + history, linked dari `sesi-inti` saat `isReflectionLevel` |
+| 25 | Future Self Simulator | Selesai | `lib/ai/prompts/futureSelfSimulator.ts`, `api/future-self/route.ts`, `app/future-self` — disclaimer simulasi wajib di UI |
+| 26 | Brutal Honesty Report | Selesai | `lib/ai/prompts/brutalHonesty.ts`, `api/brutal-honesty/route.ts`, `app/brutal-honesty` — data dihitung dulu di kode, baru dimasukkan ke prompt |
+| 27 | Blueprint 1-5-10 Tahun | Selesai (bagian dari Kompas) | `app/kompas/page.tsx`, field `blueprintBisnis` di `userProfiles` |
+| 28 | Kematangan Kepribadian | Selesai | `lib/ai/prompts/personalityMaturity.ts`, `api/personality-maturity/route.ts`, `app/kepribadian` — laporan bulanan dari entri jurnal 30 hari, dibanding 30 hari sebelumnya |
 
 ### H. Kesehatan & Perawatan Diri (data real wajib dulu)
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 29 | Asupan Protein & Bentuk Tubuh | Pengumpulan data selesai (`healthProfiles`), endpoint saran belum | PENTING: sebelum bikin endpoint saran, cek `healthProfiles` user ada isinya. Kalau kosong, balas suruh isi onboarding dulu, JANGAN panggil AI dengan data kosong. Rujuk AKG Kemenkes — karena AI tidak boleh mengarang angka gizi, pertimbangkan menyimpan tabel referensi AKG resmi secara manual di kode (bukan diminta ke AI) |
-| 30 | Perawatan Wajah | Sama seperti #29, pakai `skinType`/`skinConcerns` | Sama prinsipnya — AI cuma boleh kasih arahan umum + selalu sarankan cek BPOM, tidak boleh klaim bahan aktif spesifik tanpa dasar |
-| 31 | Kebersihan Diri (checklist) | Belum ada | Ini TIDAK butuh AI sama sekali — cukup checklist statis harian + tabel log sederhana |
+| 29 | Asupan Protein & Bentuk Tubuh | Selesai | `lib/ai/prompts/healthAdvice.ts`, `api/health-advice/route.ts?type=protein`, `app/kesehatan` — guard: cek `healthProfiles` ada dulu, AI hanya beri rentang estimasi bukan angka pasti |
+| 30 | Perawatan Wajah | Selesai | `api/health-advice/route.ts?type=skin`, tab kedua di `app/kesehatan` — AI hanya arahan umum, selalu sarankan cek BPOM |
+| 31 | Kebersihan Diri (checklist) | Selesai | `api/hygiene/route.ts` (upsert harian), `app/kebersihan` — 10 item checklist statis + log mingguan, tanpa AI |
 
 ### I. Ibadah & Keuangan (data real wajib dulu)
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 32 | Pengingat Ibadah | Pengumpulan lokasi selesai (`prayerProfiles`), integrasi API resmi belum | Rekomendasi: pakai Aladhan API (aladhan.com/prayer-times-api, gratis, tanpa key) dari server route `api/prayer-times/route.ts`. WAJIB: kalau fetch gagal, balas jujur "tidak bisa ambil jadwal sekarang", JANGAN fallback ke jadwal karangan. |
-| 33 | Atur Keuangan | Pengumpulan data selesai (`financeProfiles`), endpoint saran belum | Sama prinsip #29 — cek data ada dulu. Untuk data pasar (saham/reksadana/kripto), API HARUS minta user paste data real-time sendiri, jangan pernah AI generate angka pasar. |
+| 32 | Pengingat Ibadah | Selesai | `api/prayer-times/route.ts` (Aladhan API, GET/POST profil), `app/ibadah` — return 503 jujur kalau API gagal, tidak pernah mengarang jadwal |
+| 33 | Atur Keuangan | Selesai | `lib/ai/prompts/financeAdvice.ts`, `api/finance-advice/route.ts`, `app/keuangan` — guard: cek `financeProfiles` ada dulu, tidak pernah menyebut harga saham/aset |
 
 ### J. Sistem Prestise
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 34 | Diamond Tier System | Mekanisme inti selesai & teruji (`lib/engine/diamondTier.ts`) | Sub-fitur yang belum: Diamond Vault (galeri visual rekap level 1->50->100...) dan Diamond Mentor Unlock (gaya AI mentor lebih tegas setelah lewat checkpoint — bisa reuse `globalMentor.ts` dengan persona baru "diamond_tegas") |
+| 34 | Diamond Tier System | Sebagian | Mekanisme inti selesai & teruji (`lib/engine/diamondTier.ts`). Diamond Vault (galeri) selesai: `api/diamond-vault/route.ts`, `app/diamond-vault`. **Yang belum:** Diamond Mentor Unlock — persona AI lebih tegas setelah checkpoint. Cara termudah: di `app/mentor`, cek `diamondCheckpoints` user, kalau sudah lewat checkpoint tampilkan pilihan persona ke-7 "Tegas (Diamond)" yang pakai `buildGlobalMentorSystemPrompt("ketegasan_korea")` + tambahan instruksi "tuntut lebih keras" di system prompt. |
 
 ### K. Kamus Pribadi
 | # | Fitur | Status | Lokasi |
@@ -103,10 +103,22 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 | Bagian | Status | Lokasi |
 |---|---|---|
 | Kategori Fundamental, Level 1-5 + 1 studi kasus | Selesai | `content/stockFundamentalLevels.ts`, `app/akademi-saham` |
-| Kategori Teknikal / Makro-Sektoral / Sentimen-Berita / Manajemen Risiko / Legal-Compliance | Infrastruktur siap (`stockCategoryEnum`, semua service/API sudah generic per-kategori), konten belum ditulis | Tambahkan array baru mirip `STOCK_FUNDAMENTAL_LEVELS` di `content/`, lalu tambahkan ke `seed.ts`. API `api/stock-academy/lesson?category=teknikal` dst SUDAH jalan begitu kontennya ada. |
+| Kategori Teknikal, Level 1-5 | Selesai | `content/stockTechnicalLevels.ts`, seeded ke DB |
+| Kategori Makro-Sektoral, Level 1-5 | Selesai | `content/stockMacroLevels.ts`, seeded ke DB |
+| Kategori Sentimen & Berita, Level 1-5 | Selesai | `content/stockSentimentLevels.ts`, seeded ke DB |
+| Kategori Manajemen Risiko, Level 1-5 | Selesai | `content/stockRiskLevels.ts`, seeded ke DB |
+| Kategori Legal & Compliance, Level 1-5 | Selesai | `content/stockLegalLevels.ts`, seeded ke DB |
 | Investor Coach chat, anti-halusinasi, disclaimer | Selesai | `lib/ai/prompts/investorCoach.ts`, `api/investor/chat` |
 
 **Legenda status:** Selesai · Sebagian (fondasi ada, perlu dilanjutkan) · Belum ada
+
+---
+
+## Fitur yang sengaja di-skip (butuh keputusan terpisah)
+
+- **#7, #8, #10** (Voice/audio features) — butuh keputusan produk soal privasi audio user. Pilihan: (a) Web Speech API browser (transcribe di client, tidak ada audio dikirim ke server), (b) MediaRecorder + kirim ke model via OpenRouter. Schema DB sudah ada, tinggal putuskan pendekatan.
+- **#13** (Silent Mode / Push Notification) — butuh service worker + Web Push API, di luar scope Next.js App Router biasa. Bisa ditambah jika app di-PWA-kan.
+- **#20** (Skenario Lintas Budaya) — belum diimplementasikan. Pola sama persis dengan `insting/scenario` tapi ada parameter `culturalContext` di prompt.
 
 ---
 
@@ -134,9 +146,25 @@ Ikuti urutan ini supaya konsisten:
    pakai komponen dari `components/ui/` (Button, Card, Input, dst) supaya
    konsisten dengan tema dark/gold. Tambahkan link baru ke `NAV_ITEMS` di
    `components/AppShell.tsx` kalau ini halaman utama baru.
-6. Jalankan `npm run typecheck && npm run lint && npm test && npm run build`
+6. **useEffect pattern** — JANGAN panggil setState secara synchronous di
+   awal fungsi yang di-pass ke `useEffect`. Semua setState harus ada di dalam
+   `.then()`/`.catch()` callback. Contoh yang benar:
+   ```ts
+   function load() {
+     fetch("/api/...").then(r => r.json()).then(d => setState(d)).catch(() => {});
+   }
+   useEffect(load, []);
+   ```
+7. Jalankan `npm run typecheck && npm run lint && npm test && npm run build`
    sebelum menganggap fitur selesai — proyek ini sudah bersih dari error di
    keempatnya, jaga supaya tetap begitu.
+
+## Quirks Termux/Android yang perlu diingat
+
+- **`npm run dev`** harus pakai `--webpack` (sudah ada di package.json) — Turbopack tidak support android/arm64.
+- **`npm run build`** sama — sudah pakai `--webpack`.
+- **`npm run db:seed`** pakai `--env-file .env.local` (sudah ada di package.json) — `tsx` tidak auto-load `.env.local`.
+- **tsconfig.json** dan **eslint.config.mjs** sudah exclude file Expo di root (`app/`, `components/`, `App.tsx`, `metro.config.js`) yang berbagi direktori yang sama dengan proyek Next.js.
 
 ## Menambah konten Level 6 ke atas
 
