@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: "/dashboard", label: "Dasbor" },
   { href: "/sesi-inti", label: "Sesi Inti" },
   { href: "/skill/daya-ingat", label: "Daya Ingat" },
+  { href: "/puzzle-logika", label: "Puzzle Logika" },
   { href: "/akademi-saham", label: "Akademi Saham" },
   { href: "/journal", label: "Journal" },
   { href: "/kompas", label: "Kompas 5 Tahun" },
