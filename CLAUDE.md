@@ -118,7 +118,6 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 
 - **#7, #8, #10** (Voice/audio features) — butuh keputusan produk soal privasi audio user. Pilihan: (a) Web Speech API browser (transcribe di client, tidak ada audio dikirim ke server), (b) MediaRecorder + kirim ke model via OpenRouter. Schema DB sudah ada, tinggal putuskan pendekatan.
 - **#13** (Silent Mode / Push Notification) — butuh service worker + Web Push API, di luar scope Next.js App Router biasa. Bisa ditambah jika app di-PWA-kan.
-- **#20** (Skenario Lintas Budaya) — belum diimplementasikan. Pola sama persis dengan `insting/scenario` tapi ada parameter `culturalContext` di prompt.
 
 ---
 
