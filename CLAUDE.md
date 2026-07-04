@@ -92,7 +92,7 @@ harus diikuti supaya konsisten dengan fondasi yang sudah ada.
 ### J. Sistem Prestise
 | # | Fitur | Status | Lokasi |
 |---|---|---|---|
-| 34 | Diamond Tier System | Sebagian | Mekanisme inti selesai & teruji (`lib/engine/diamondTier.ts`). Diamond Vault (galeri) selesai: `api/diamond-vault/route.ts`, `app/diamond-vault`. **Yang belum:** Diamond Mentor Unlock — persona AI lebih tegas setelah checkpoint. Cara termudah: di `app/mentor`, cek `diamondCheckpoints` user, kalau sudah lewat checkpoint tampilkan pilihan persona ke-7 "Tegas (Diamond)" yang pakai `buildGlobalMentorSystemPrompt("ketegasan_korea")` + tambahan instruksi "tuntut lebih keras" di system prompt. |
+| 34 | Diamond Tier System | Selesai | Mekanisme inti (`lib/engine/diamondTier.ts`), Diamond Vault (`api/diamond-vault/route.ts`, `app/diamond-vault`), Diamond Mentor Unlock: persona `diamond_tegas` di `globalMentor.ts`, GET `/api/mentor` return `hasDiamondUnlock`, POST guard tolak kalau belum ada checkpoint, UI terkunci/terbuka di `app/mentor` |
 
 ### K. Kamus Pribadi
 | # | Fitur | Status | Lokasi |
