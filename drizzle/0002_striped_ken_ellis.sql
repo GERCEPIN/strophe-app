@@ -1,0 +1,1 @@
+ALTER TABLE "insting_scenarios" ADD COLUMN "cultural_context" text;

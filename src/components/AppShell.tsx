@@ -26,6 +26,7 @@ const NAV_ITEMS = [
   { href: "/keuangan", label: "Keuangan" },
   { href: "/kepribadian", label: "Kepribadian" },
   { href: "/kebersihan", label: "Kebersihan" },
+  { href: "/lintas-budaya", label: "Lintas Budaya" },
   { href: "/perspektif", label: "Perspektif" },
   { href: "/bahasa-tubuh", label: "Bahasa Tubuh" },
   { href: "/peribahasa", label: "Peribahasa" },

@@ -232,6 +232,7 @@ export const instingScenarios = pgTable("insting_scenarios", {
   correctOptionId: text("correct_option_id").notNull(),
   reasoning: text("reasoning").notNull(),
   isReverseLevel: boolean("is_reverse_level").notNull().default(false), // Uji Nyali, feature 3
+  culturalContext: text("cultural_context"), // feature 20 — Skenario Lintas Budaya
   aiGenerated: boolean("ai_generated").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
