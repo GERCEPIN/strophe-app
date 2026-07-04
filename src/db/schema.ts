@@ -360,6 +360,29 @@ export const futureSelfSimulations = pgTable("future_self_simulations", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+/** Feature 28 — Kematangan Kepribadian: monthly AI analysis of decision patterns. */
+export const personalityMaturityReports = pgTable("personality_maturity_reports", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  monthOf: date("month_of").notNull(), // YYYY-MM-01
+  reportText: text("report_text").notNull(),
+  entriesAnalyzed: integer("entries_analyzed").notNull().default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => ({
+  userMonthIdx: uniqueIndex("personality_maturity_user_month_idx").on(t.userId, t.monthOf),
+}));
+
+/** Feature 31 — Kebersihan Diri: daily hygiene checklist log. */
+export const hygieneChecklistLogs = pgTable("hygiene_checklist_logs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  date: date("date").notNull(),
+  completedItems: jsonb("completed_items").$type<string[]>().notNull().default([]),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => ({
+  userDateIdx: uniqueIndex("hygiene_checklist_user_date_idx").on(t.userId, t.date),
+}));
+
 /** Feature 26 — Brutal Honesty Report, weekly. */
 export const brutalHonestyReports = pgTable("brutal_honesty_reports", {
   id: uuid("id").defaultRandom().primaryKey(),

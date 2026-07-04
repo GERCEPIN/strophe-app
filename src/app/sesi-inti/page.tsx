@@ -11,6 +11,7 @@ interface CoreSessionData {
   level: number;
   isReflectionLevel: boolean;
   isDiamondCheckpoint: boolean;
+  isKompasAlignmentLevel: boolean;
   content: { title: string; instructions: string; durationMinutes: number } | null;
   contentRecycledFromEarlierLevel: boolean;
   completedToday: boolean;
@@ -19,6 +20,7 @@ interface CoreSessionData {
 export default function SesiIntiPage() {
   const [data, setData] = useState<CoreSessionData | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [kompasNote, setKompasNote] = useState<string | null>(null);
 
   function load() {
     fetch("/api/core-session")
@@ -32,7 +34,11 @@ export default function SesiIntiPage() {
   async function markComplete() {
     setSubmitting(true);
     try {
-      await fetch("/api/core-session", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const res = await fetch("/api/core-session", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const result = await res.json().catch(() => ({}));
+      if (result.kompasAlignmentNote) {
+        setKompasNote(result.kompasAlignmentNote);
+      }
       load();
     } finally {
       setSubmitting(false);
@@ -70,6 +76,17 @@ export default function SesiIntiPage() {
         {data.isDiamondCheckpoint && (
           <Card className="border-[var(--strophe-diamond)] text-sm text-[var(--strophe-diamond)]">
             Diamond Checkpoint — level kelipatan 50. Ini ujian gabungan semua skill yang pernah dipelajari.
+          </Card>
+        )}
+        {data.isKompasAlignmentLevel && !data.completedToday && (
+          <Card className="border-[var(--strophe-gold-dim)] text-sm">
+            Level kelipatan 20 — setelah menyelesaikan sesi ini, kamu akan mendapat cek keselarasan dengan Kompas 5 Tahunmu.
+          </Card>
+        )}
+        {kompasNote && (
+          <Card className="border-[var(--strophe-gold)] bg-[var(--strophe-gold)]/5">
+            <p className="text-xs uppercase tracking-wider text-[var(--strophe-gold)] mb-2">Cek Keselarasan Kompas 5 Tahun</p>
+            <p className="text-sm leading-relaxed">{kompasNote}</p>
           </Card>
         )}
         {data.contentRecycledFromEarlierLevel && (

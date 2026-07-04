@@ -19,6 +19,16 @@ const NAV_ITEMS = [
   { href: "/ibadah", label: "Ibadah" },
   { href: "/skill-radar", label: "Skill Radar" },
   { href: "/diamond-vault", label: "Diamond Vault" },
+  { href: "/mentor", label: "Mentor" },
+  { href: "/skill-combo", label: "Skill Combo" },
+  { href: "/cross-skill", label: "Cross-Skill" },
+  { href: "/kesehatan", label: "Kesehatan" },
+  { href: "/keuangan", label: "Keuangan" },
+  { href: "/kepribadian", label: "Kepribadian" },
+  { href: "/kebersihan", label: "Kebersihan" },
+  { href: "/perspektif", label: "Perspektif" },
+  { href: "/bahasa-tubuh", label: "Bahasa Tubuh" },
+  { href: "/peribahasa", label: "Peribahasa" },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {

@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db/client";
-import { coreSessionContent, coreSessionLogs } from "@/db/schema";
+import { coreSessionContent, coreSessionLogs, userProfiles } from "@/db/schema";
 import { eq, and, count } from "drizzle-orm";
 import { requireUser } from "@/lib/auth/requireUser";
 import { getRolledOverProgress, completeTodayLevel } from "@/lib/services/levelProgressService";
 import { recordTodayCompletion } from "@/lib/services/mentalScoreService";
 import { isMultipleOfLevel } from "@/lib/engine/leveling";
+import { chatCompletion } from "@/lib/ai/openrouter";
+import { withCoreRules } from "@/lib/ai/prompts/base";
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
@@ -46,6 +48,7 @@ export async function GET() {
     highestLevelReached: progress.highestLevelReached,
     isReflectionLevel: isMultipleOfLevel(progress.currentLevel, 10),
     isDiamondCheckpoint: isMultipleOfLevel(progress.currentLevel, 50),
+    isKompasAlignmentLevel: isMultipleOfLevel(progress.currentLevel, 20),
     content,
     contentRecycledFromEarlierLevel: recycled,
     completedToday: log?.completed ?? false,
@@ -97,5 +100,33 @@ export async function POST(req: NextRequest) {
   const newProgress = await completeTodayLevel(session.userId, "core");
   const mentalScore = await recordTodayCompletion(session.userId);
 
-  return NextResponse.json({ ok: true, progress: newProgress, mentalScore });
+  let kompasAlignmentNote: string | undefined;
+
+  // Check if the level just completed is a multiple of 20 (Kompas alignment check)
+  if (isMultipleOfLevel(newProgress.currentLevel - 1, 20)) {
+    try {
+      const [profileRow] = await db
+        .select({ visi5Tahun: userProfiles.visi5Tahun })
+        .from(userProfiles)
+        .where(eq(userProfiles.userId, session.userId));
+
+      if (profileRow?.visi5Tahun) {
+        const system = withCoreRules(
+          "Kamu mengecek keselarasan antara tindakan harian user dengan visi 5 tahun mereka di aplikasi STROPHE. Tulis 2-3 kalimat refleksi singkat: apakah pola progres yang ada (level dan streak) terlihat sejalan dengan visi yang dinyatakan? Jujur dan suportif — bukan hanya pujian kosong."
+        );
+        const user = `Visi 5 tahun user: ${profileRow.visi5Tahun}\nLevel saat ini: ${newProgress.currentLevel}\nStreak saat ini: ${mentalScore.streakDays} hari\n\nApakah progres ini sejalan dengan visinya?`;
+        kompasAlignmentNote = await chatCompletion(
+          [
+            { role: "system", content: system },
+            { role: "user", content: user },
+          ],
+          { maxTokens: 200, temperature: 0.6 }
+        );
+      }
+    } catch (err) {
+      console.error("Kompas alignment check failed (non-fatal):", err);
+    }
+  }
+
+  return NextResponse.json({ ok: true, progress: newProgress, mentalScore, kompasAlignmentNote });
 }
