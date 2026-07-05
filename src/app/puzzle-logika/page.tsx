@@ -69,7 +69,7 @@ export default function PuzzleLogikaPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #5</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Puzzle Logika</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -110,7 +110,7 @@ export default function PuzzleLogikaPage() {
 
         {/* Current puzzle */}
         {current && (
-          <Card>
+          <Card className="card-elevated animate-in stagger-1">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs text-[var(--strophe-text-muted)]">
                 {LEVEL_LABELS[selectedLevel]} · {puzzleIndex + 1}/{puzzles.length}
@@ -150,7 +150,7 @@ export default function PuzzleLogikaPage() {
             </div>
 
             {revealed && (
-              <div className="mt-5 pt-4 border-t border-[var(--strophe-border)] space-y-3">
+              <div className="animate-in mt-5 pt-4 border-t border-[var(--strophe-border)] space-y-3">
                 <p className={`text-sm font-semibold ${isCorrect ? "text-[var(--strophe-success)]" : "text-red-400"}`}>
                   {isCorrect ? "Benar!" : "Kurang tepat."}
                 </p>

@@ -45,7 +45,7 @@ export default function SkillComboPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #15</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Skill Combo Unlock</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -73,7 +73,7 @@ export default function SkillComboPage() {
             </Card>
           ) : (
             data?.unlocked.map((u) => (
-              <Card key={u.id}>
+              <Card key={u.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-sm font-medium">{u.comboCode}</p>
@@ -95,7 +95,7 @@ export default function SkillComboPage() {
           {data?.allRules.map((rule) => {
             const isUnlocked = unlockedCodes.includes(rule.code);
             return (
-              <Card key={rule.code} className={isUnlocked ? "border-[var(--strophe-success)]" : ""}>
+              <Card key={rule.code} className={`card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)] ${isUnlocked ? "border-[var(--strophe-success)]" : ""}`}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1 flex-1">
                     <div className="flex items-center gap-2">

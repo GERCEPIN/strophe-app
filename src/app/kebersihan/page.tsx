@@ -76,7 +76,7 @@ export default function KebersihanPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #31</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Kebersihan Diri</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -84,7 +84,7 @@ export default function KebersihanPage() {
           </p>
         </div>
 
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <p className="text-xs font-medium uppercase tracking-wider text-[var(--strophe-text-muted)] mb-3">
             Checklist Hari Ini ({checked.size}/{CHECKLIST_ITEMS.length} selesai)
           </p>
@@ -124,7 +124,7 @@ export default function KebersihanPage() {
             <p className="text-sm text-[var(--strophe-text-muted)]">Belum ada riwayat.</p>
           ) : (
             history.map((log) => (
-              <Card key={log.id}>
+              <Card key={log.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">
                     {new Date(log.date + "T00:00:00").toLocaleDateString("id-ID", {

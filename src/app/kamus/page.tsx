@@ -73,12 +73,12 @@ export default function KamusPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Auto-Simplifier</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Kamus Pribadi</h1>
         </div>
 
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <form onSubmit={handleSubmit} className="space-y-3">
             <div>
               <Label htmlFor="term">Istilah yang belum kamu pahami</Label>
@@ -96,7 +96,7 @@ export default function KamusPage() {
           {error && <p className="text-sm text-[var(--strophe-danger)] mt-3">{error}</p>}
 
           {result && (
-            <div className="mt-4 rounded-md bg-[var(--strophe-bg-elevated)] p-3.5">
+            <div className="animate-in mt-4 rounded-md bg-[var(--strophe-bg-elevated)] p-3.5">
               <p className="text-sm font-medium text-[var(--strophe-gold-bright)] mb-1">{result.term}</p>
               <p className="text-sm text-[var(--strophe-text-muted)] mb-3">{result.explanation}</p>
               <Button variant="ghost" className="text-xs" onClick={explainAgainSimpler} disabled={loading}>
@@ -112,7 +112,7 @@ export default function KamusPage() {
           </h2>
           <div className="space-y-2">
             {entries.map((entry) => (
-              <Card key={entry.id} className="py-3">
+              <Card key={entry.id} className="py-3 card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                 <p className="text-sm font-medium">{entry.term}</p>
                 <p className="text-sm text-[var(--strophe-text-muted)] mt-1">{entry.simplifiedExplanation}</p>
               </Card>

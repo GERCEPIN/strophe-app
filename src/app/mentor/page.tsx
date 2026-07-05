@@ -116,13 +116,13 @@ export default function MentorPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-4 flex flex-col h-[calc(100vh-140px)]">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #18</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Global Mentor</h1>
         </div>
 
         {/* Persona selector */}
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <p className="text-xs text-[var(--strophe-text-muted)] mb-2 font-medium uppercase tracking-wider">
             Pilih Gaya Mentor
           </p>

@@ -39,7 +39,7 @@ export default function SkillRadarPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #14</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Skill Radar</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -47,7 +47,7 @@ export default function SkillRadarPage() {
           </p>
         </div>
 
-        <Card className="border-[var(--strophe-border)]">
+        <Card className="card-elevated animate-in stagger-1 border-[var(--strophe-border)]">
           <p className="text-xs text-[var(--strophe-text-muted)]">
             Rekomendasi ini berdasarkan perbandingan progres antar track kamu, bukan standar eksternal.
           </p>
@@ -67,7 +67,7 @@ export default function SkillRadarPage() {
             </p>
           )}
           {suggestions.map((s) => (
-            <Card key={s.id}>
+            <Card key={s.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs text-[var(--strophe-text-faint)]">
                   {new Date(s.createdAt).toLocaleDateString("id-ID")}

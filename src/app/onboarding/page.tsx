@@ -64,7 +64,7 @@ export default function OnboardingPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto">
-        <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold mb-2">Sebelum mulai</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold mb-2 animate-in">Sebelum mulai</h1>
         <p className="text-sm text-[var(--strophe-text-muted)] mb-6 leading-relaxed">
           Semua data ini dipakai supaya Coach AI tidak pernah mengarang angka soal kondisimu. Boleh dilewati dan
           diisi belakangan lewat halaman ini — tapi fitur kesehatan, keuangan, dan ibadah baru akan memberi saran
@@ -72,7 +72,7 @@ export default function OnboardingPage() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <Card>
+          <Card className="card-elevated animate-in stagger-1">
             <h2 className="font-[family-name:var(--font-display)] font-semibold mb-1">Kompas 5 Tahun</h2>
             <p className="text-xs text-[var(--strophe-text-muted)] mb-4">Fitur #23 &amp; #27 — dicek keselarasannya tiap 20 level.</p>
             <div className="space-y-3">
@@ -97,7 +97,7 @@ export default function OnboardingPage() {
             </div>
           </Card>
 
-          <Card>
+          <Card className="card-elevated animate-in stagger-2">
             <h2 className="font-[family-name:var(--font-display)] font-semibold mb-1">⚠️ Kesehatan &amp; Kulit</h2>
             <p className="text-xs text-[var(--strophe-text-muted)] mb-4">
               Fitur #29 &amp; #30 — wajib diisi dulu sebelum Coach memberi saran protein atau perawatan wajah.

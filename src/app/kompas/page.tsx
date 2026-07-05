@@ -47,7 +47,7 @@ export default function KompasPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #23 &amp; #27</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Kompas 5 Tahun &amp; Blueprint 1-5-10</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -55,7 +55,7 @@ export default function KompasPage() {
           </p>
         </div>
 
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="visi">Visi 5 tahun ke depan</Label>

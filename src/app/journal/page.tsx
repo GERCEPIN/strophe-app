@@ -47,7 +47,7 @@ export default function JournalPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #22</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Decision Journal Otomatis</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -56,7 +56,7 @@ export default function JournalPage() {
           </p>
         </div>
 
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <form onSubmit={handleSubmit} className="space-y-3">
             <div>
               <Label htmlFor="decision">Keputusan hari ini</Label>
@@ -74,7 +74,7 @@ export default function JournalPage() {
 
         <div className="space-y-3">
           {entries.map((entry) => (
-            <Card key={entry.id}>
+            <Card key={entry.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
               <p className="text-xs text-[var(--strophe-text-faint)] mb-1">{entry.date}</p>
               <p className="text-sm mb-2">{entry.decisionText}</p>
               {entry.aiPatternNote && (

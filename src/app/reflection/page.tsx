@@ -50,7 +50,7 @@ export default function ReflectionPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #24</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Reflection Level</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -58,7 +58,7 @@ export default function ReflectionPage() {
           </p>
         </div>
 
-        <Card>
+        <Card className="card-elevated animate-in stagger-1">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -119,7 +119,7 @@ export default function ReflectionPage() {
             <p className="text-sm text-[var(--strophe-text-faint)]">Belum ada refleksi tersimpan.</p>
           )}
           {entries.map((entry) => (
-            <Card key={entry.id}>
+            <Card key={entry.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs text-[var(--strophe-text-faint)]">
                   {new Date(entry.createdAt).toLocaleDateString("id-ID")}

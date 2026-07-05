@@ -29,7 +29,7 @@ export default function KeuanganPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #33</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Panduan Keuangan</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -37,7 +37,7 @@ export default function KeuanganPage() {
           </p>
         </div>
 
-        <Card className="border-[var(--strophe-gold-dim)]">
+        <Card className="card-elevated animate-in stagger-1 border-[var(--strophe-gold-dim)]">
           <p className="text-xs text-[var(--strophe-gold-bright)] font-medium mb-1">DISCLAIMER PENTING</p>
           <p className="text-sm text-[var(--strophe-text-muted)]">
             Panduan ini hanya prinsip keuangan dasar — BUKAN saran investasi. Untuk keputusan investasi,
@@ -60,7 +60,7 @@ export default function KeuanganPage() {
         )}
 
         {advice && (
-          <Card>
+          <Card className="animate-in card-elevated">
             <p className="text-sm leading-relaxed whitespace-pre-wrap">{advice}</p>
           </Card>
         )}

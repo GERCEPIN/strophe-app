@@ -27,7 +27,7 @@ export default function LandingPage() {
       </header>
 
       <section className="max-w-5xl mx-auto w-full px-6 pt-10 pb-20 grid md:grid-cols-[1.3fr_0.7fr] gap-12 items-center">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)] mb-4">Στροφή — titik balik</p>
           <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold leading-[1.05] tracking-tight text-[var(--strophe-text)]">
             Bukan aplikasi motivasi.
@@ -65,7 +65,7 @@ export default function LandingPage() {
       <section className="max-w-5xl mx-auto w-full px-6 pb-24">
         <div className="grid sm:grid-cols-2 gap-px bg-[var(--strophe-border)] rounded-xl overflow-hidden border border-[var(--strophe-border)]">
           {PILLARS.map((p) => (
-            <div key={p.code} className="bg-[var(--strophe-bg)] p-6">
+            <div key={p.code} className="bg-[var(--strophe-bg)] p-6 hover:bg-[var(--strophe-surface-hover)] transition-colors duration-150">
               <span className="font-[family-name:var(--font-instrument)] text-xs text-[var(--strophe-gold)]">{p.code}</span>
               <h3 className="font-[family-name:var(--font-display)] text-lg font-semibold mt-2 mb-2">{p.title}</h3>
               <p className="text-sm text-[var(--strophe-text-muted)] leading-relaxed">{p.desc}</p>

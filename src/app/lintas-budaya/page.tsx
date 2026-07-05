@@ -107,7 +107,7 @@ export default function LintasBudayaPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #20</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Skenario Lintas Budaya</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -151,7 +151,7 @@ export default function LintasBudayaPage() {
         )}
 
         {scenario && !result && (
-          <Card>
+          <Card className="animate-in card-elevated">
             <p className="text-xs uppercase tracking-widest text-[var(--strophe-text-muted)] mb-1">
               Konteks: {selectedLabel.split("—")[0].trim()}
             </p>
@@ -174,7 +174,7 @@ export default function LintasBudayaPage() {
         )}
 
         {scenario && result && (
-          <Card className={result.correct ? "border-[var(--strophe-success)]/40" : "border-red-500/30"}>
+          <Card className={`animate-in card-elevated ${result.correct ? "border-[var(--strophe-success)]/40" : "border-red-500/30"}`}>
             <p className={`text-sm font-semibold mb-2 ${result.correct ? "text-[var(--strophe-success)]" : "text-red-400"}`}>
               {result.correct ? "Tepat! Kamu memahami konteks budayanya." : "Kurang tepat untuk konteks budaya ini."}
             </p>

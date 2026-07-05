@@ -49,7 +49,7 @@ export default function DiamondVaultPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto space-y-8">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #34</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Diamond Vault</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -75,10 +75,10 @@ export default function DiamondVaultPage() {
               Diamond Checkpoints
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {checkpoints.map((cp) => (
+              {checkpoints.map((cp, i) => (
                 <Card
                   key={cp.id}
-                  className="text-center border-[var(--strophe-diamond,var(--strophe-gold))]/40"
+                  className={`text-center card-elevated animate-in stagger-${Math.min(i + 1, 5)} border-[var(--strophe-diamond,var(--strophe-gold))]/40`}
                 >
                   <p
                     className="text-4xl font-[family-name:var(--font-display)] font-bold mb-1"
@@ -107,7 +107,7 @@ export default function DiamondVaultPage() {
             </h2>
             <div className="space-y-2">
               {badges.map((badge) => (
-                <Card key={badge.id} className="flex items-start gap-3">
+                <Card key={badge.id} className="flex items-start gap-3 card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                   <div
                     className="text-2xl mt-0.5"
                     style={{ color: "var(--strophe-gold)" }}

@@ -45,7 +45,7 @@ export default function BrutalHonestyPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #26</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Brutal Honesty Report</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -70,7 +70,7 @@ export default function BrutalHonestyPage() {
             <p className="text-sm text-[var(--strophe-text-faint)]">Belum ada laporan. Generate laporan minggu ini untuk memulai.</p>
           )}
           {reports.map((report) => (
-            <Card key={report.id}>
+            <Card key={report.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
               <p className="text-xs text-[var(--strophe-text-faint)] mb-3">Minggu {report.weekOf}</p>
               <p className="text-sm leading-relaxed mb-4">{report.weaknessesText}</p>
               <div className="border border-[var(--strophe-gold)]/40 rounded-lg p-3 bg-[var(--strophe-gold)]/5">

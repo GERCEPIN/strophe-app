@@ -50,7 +50,7 @@ export default function BahasaTubuhPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #9</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Latihan Bahasa Tubuh</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -59,8 +59,8 @@ export default function BahasaTubuhPage() {
         </div>
 
         <div className="space-y-4">
-          {SECTIONS.map((section) => (
-            <Card key={section.title}>
+          {SECTIONS.map((section, i) => (
+            <Card key={section.title} className={`card-elevated animate-in stagger-${Math.min(i + 1, 5)}`}>
               <h2 className="text-base font-semibold mb-3">{section.title}</h2>
               <ul className="space-y-2">
                 {section.points.map((point, i) => (

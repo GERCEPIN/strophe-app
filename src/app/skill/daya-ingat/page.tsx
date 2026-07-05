@@ -62,7 +62,7 @@ export default function MemoryVaultPage() {
   return (
     <AppShell>
       <div className="max-w-xl mx-auto space-y-5">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Memory Vault</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Daya Ingat</h1>
         </div>
@@ -77,7 +77,7 @@ export default function MemoryVaultPage() {
         )}
 
         {current && (
-          <Card>
+          <Card className="card-elevated animate-in stagger-1">
             <p className="text-xs text-[var(--strophe-gold)] uppercase tracking-wider mb-2">{current.term}</p>
             <p className="text-sm mb-5">{current.prompt}</p>
 

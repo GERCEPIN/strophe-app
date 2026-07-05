@@ -51,7 +51,7 @@ export default function KesehatanPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #29 & #30</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Kesehatan & Perawatan</h1>
         </div>
@@ -75,7 +75,7 @@ export default function KesehatanPage() {
 
         {activeTab === "protein" && (
           <div className="space-y-4">
-            <Card>
+            <Card className="card-elevated animate-in stagger-1">
               <p className="text-sm text-[var(--strophe-text-muted)]">
                 Panduan estimasi kebutuhan protein harian berdasarkan data fisikmu yang sudah diisi di profil kesehatan.
               </p>
@@ -92,7 +92,7 @@ export default function KesehatanPage() {
               </Card>
             )}
             {proteinAdvice && (
-              <Card>
+              <Card className="animate-in card-elevated">
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{proteinAdvice}</p>
               </Card>
             )}
@@ -104,7 +104,7 @@ export default function KesehatanPage() {
 
         {activeTab === "skin" && (
           <div className="space-y-4">
-            <Card>
+            <Card className="card-elevated animate-in stagger-1">
               <p className="text-sm text-[var(--strophe-text-muted)]">
                 Rutinitas perawatan kulit dasar berdasarkan tipe kulitmu yang sudah diisi di profil kesehatan.
               </p>
@@ -121,7 +121,7 @@ export default function KesehatanPage() {
               </Card>
             )}
             {skinAdvice && (
-              <Card>
+              <Card className="animate-in card-elevated">
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{skinAdvice}</p>
               </Card>
             )}

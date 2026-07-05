@@ -38,7 +38,7 @@ export default function FutureSelfPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #25</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Future Self Simulator</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -46,7 +46,7 @@ export default function FutureSelfPage() {
           </p>
         </div>
 
-        <Card className="border-[var(--strophe-gold)]/40 bg-[var(--strophe-gold)]/5">
+        <Card className="card-elevated animate-in stagger-1 border-[var(--strophe-gold)]/40 bg-[var(--strophe-gold)]/5">
           <p className="text-sm text-[var(--strophe-gold-bright)]">
             Ini simulasi motivasi berdasarkan pola progres, bukan ramalan atau prediksi.
           </p>
@@ -64,7 +64,7 @@ export default function FutureSelfPage() {
             <p className="text-sm text-[var(--strophe-text-faint)]">Belum ada simulasi. Tekan tombol di atas untuk memulai.</p>
           )}
           {simulations.map((sim) => (
-            <Card key={sim.id}>
+            <Card key={sim.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs text-[var(--strophe-text-faint)]">
                   {new Date(sim.createdAt).toLocaleDateString("id-ID")}

@@ -67,7 +67,7 @@ export default function MisiPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #16/#17</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Misi Nyata</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -85,7 +85,7 @@ export default function MisiPage() {
         </div>
 
         {activeMission && (
-          <Card className="border-[var(--strophe-gold)]/50">
+          <Card className="card-elevated animate-in stagger-1 border-[var(--strophe-gold)]/50">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs uppercase tracking-wider text-[var(--strophe-gold)]">Misi Aktif</span>
               {activeMission.category === "zona_nyaman_breaker" && (
@@ -125,7 +125,7 @@ export default function MisiPage() {
               Misi Selesai
             </h2>
             {completedMissions.map((m) => (
-              <Card key={m.id} className="opacity-80">
+              <Card key={m.id} className="card-elevated opacity-80 transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)] hover:opacity-100">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs text-[var(--strophe-text-faint)]">
                     {new Date(m.createdAt).toLocaleDateString("id-ID")}

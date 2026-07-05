@@ -56,7 +56,7 @@ export default function KepribadianPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #28</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Kematangan Kepribadian</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -91,7 +91,7 @@ export default function KepribadianPage() {
             </Card>
           ) : (
             reports.map((r) => (
-              <Card key={r.id}>
+              <Card key={r.id} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">

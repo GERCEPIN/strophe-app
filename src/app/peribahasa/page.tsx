@@ -49,7 +49,7 @@ export default function PeribahasaPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #19</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Bahasa & Peribahasa Dunia</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -61,7 +61,7 @@ export default function PeribahasaPage() {
           <section key={tema} className="space-y-3">
             <h2 className={`text-base font-semibold ${THEME_COLORS[tema] ?? ""}`}>{tema}</h2>
             {PERIBAHASA.filter((p) => p.tema === tema).map((p, i) => (
-              <Card key={i}>
+              <Card key={i} className="card-elevated transition-colors duration-150 hover:bg-[var(--strophe-surface-hover)]">
                 <div className="space-y-1">
                   <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-[var(--strophe-surface)] border border-[var(--strophe-border)] text-[var(--strophe-text-muted)]">
                     {p.budaya}

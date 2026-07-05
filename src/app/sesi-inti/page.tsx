@@ -56,7 +56,7 @@ export default function SesiIntiPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-5">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between animate-in">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Sesi Inti — Level {data.level}</p>
             <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">{data.content?.title ?? "Konten belum tersedia"}</h1>
@@ -84,7 +84,7 @@ export default function SesiIntiPage() {
           </Card>
         )}
         {kompasNote && (
-          <Card className="border-[var(--strophe-gold)] bg-[var(--strophe-gold)]/5">
+          <Card className="animate-in border-[var(--strophe-gold)] bg-[var(--strophe-gold)]/5">
             <p className="text-xs uppercase tracking-wider text-[var(--strophe-gold)] mb-2">Cek Keselarasan Kompas 5 Tahun</p>
             <p className="text-sm leading-relaxed">{kompasNote}</p>
           </Card>
@@ -97,7 +97,7 @@ export default function SesiIntiPage() {
         )}
 
         {data.content && (
-          <Card>
+          <Card className="card-elevated animate-in stagger-1">
             <SimpleMarkdown text={data.content.instructions} />
             <p className="text-xs text-[var(--strophe-text-faint)] mt-4">Estimasi durasi: {data.content.durationMinutes} menit</p>
           </Card>

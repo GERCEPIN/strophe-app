@@ -82,7 +82,7 @@ export default function IbadahPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Feature #32</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Jadwal Ibadah</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -146,8 +146,8 @@ export default function IbadahPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {PRAYER_ORDER.map((name) => (
-                <Card key={name} className="text-center">
+              {PRAYER_ORDER.map((name, i) => (
+                <Card key={name} className={`text-center card-elevated animate-in stagger-${Math.min(i + 1, 5)}`}>
                   <p className="text-xs uppercase tracking-widest text-[var(--strophe-text-muted)] mb-2">{name}</p>
                   <p className="text-2xl font-[family-name:var(--font-display)] font-semibold text-[var(--strophe-gold-bright)]">
                     {timingsData.timings[name]}

@@ -33,7 +33,7 @@ export default function CrossSkillPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Fitur #6</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">Cross-Skill Insight</h1>
           <p className="text-sm text-[var(--strophe-text-muted)] mt-1">
@@ -52,7 +52,7 @@ export default function CrossSkillPage() {
         )}
 
         {insight && (
-          <Card>
+          <Card className="animate-in card-elevated">
             <p className="text-sm leading-relaxed whitespace-pre-wrap">{insight}</p>
             {generatedAt && (
               <p className="text-xs text-[var(--strophe-text-faint)] mt-3">
