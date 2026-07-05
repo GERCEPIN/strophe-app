@@ -19,25 +19,31 @@ export async function POST(req: NextRequest) {
 
   const { name, email, password } = parsed.data;
 
-  const existing = await db.select().from(users).where(eq(users.email, email)).limit(1);
-  if (existing.length > 0) {
-    return NextResponse.json({ error: "Email sudah terdaftar. Coba login." }, { status: 409 });
+  try {
+    const existing = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (existing.length > 0) {
+      return NextResponse.json({ error: "Email sudah terdaftar. Coba login." }, { status: 409 });
+    }
+
+    const passwordHash = await hashPassword(password);
+
+    const [user] = await db
+      .insert(users)
+      .values({ name, email, passwordHash })
+      .returning({ id: users.id, email: users.email });
+
+    // Initialize the "core" track so the dashboard has something to show
+    // immediately after registering (Level Tanpa Batas starts at level 1).
+    const today = new Date().toISOString().slice(0, 10);
+    await db.insert(levelProgress).values({ userId: user.id, track: "core", lastActiveDate: today });
+    await db.insert(mentalScoreLog).values({ userId: user.id, date: today, mentalScore: 60, streakDays: 0 });
+
+    await setSessionCookie({ userId: user.id, email: user.email });
+
+    return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name } }, { status: 201 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Terjadi kesalahan server.";
+    console.error("[register]", message);
+    return NextResponse.json({ error: "Gagal membuat akun. Coba lagi." }, { status: 500 });
   }
-
-  const passwordHash = await hashPassword(password);
-
-  const [user] = await db
-    .insert(users)
-    .values({ name, email, passwordHash })
-    .returning({ id: users.id, email: users.email });
-
-  // Initialize the "core" track so the dashboard has something to show
-  // immediately after registering (Level Tanpa Batas starts at level 1).
-  const today = new Date().toISOString().slice(0, 10);
-  await db.insert(levelProgress).values({ userId: user.id, track: "core", lastActiveDate: today });
-  await db.insert(mentalScoreLog).values({ userId: user.id, date: today, mentalScore: 60, streakDays: 0 });
-
-  await setSessionCookie({ userId: user.id, email: user.email });
-
-  return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name } }, { status: 201 });
 }

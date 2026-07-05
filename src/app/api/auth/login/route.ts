@@ -19,15 +19,21 @@ export async function POST(req: NextRequest) {
 
   const { email, password } = parsed.data;
 
-  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  try {
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
-  // Constant-shape response whether the email exists or not, to avoid
-  // leaking which emails are registered.
-  if (!user || !(await verifyPassword(password, user.passwordHash))) {
-    return NextResponse.json({ error: "Email atau password salah." }, { status: 401 });
+    // Constant-shape response whether the email exists or not, to avoid
+    // leaking which emails are registered.
+    if (!user || !(await verifyPassword(password, user.passwordHash))) {
+      return NextResponse.json({ error: "Email atau password salah." }, { status: 401 });
+    }
+
+    await setSessionCookie({ userId: user.id, email: user.email });
+
+    return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name: user.name } });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Terjadi kesalahan server.";
+    console.error("[login]", message);
+    return NextResponse.json({ error: "Gagal login. Coba lagi." }, { status: 500 });
   }
-
-  await setSessionCookie({ userId: user.id, email: user.email });
-
-  return NextResponse.json({ ok: true, user: { id: user.id, email: user.email, name: user.name } });
 }
