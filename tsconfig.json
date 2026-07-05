@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "app", "components", "hooks", "lib", "public", "App.tsx"]
+  "exclude": ["node_modules", "app", "expo-app", "components", "hooks", "lib", "public", "App.tsx", "index.ts", "metro.config.js"]
 }
