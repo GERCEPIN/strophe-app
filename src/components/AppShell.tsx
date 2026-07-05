@@ -31,6 +31,7 @@ const NAV_ITEMS = [
   { href: "/perspektif", label: "Perspektif" },
   { href: "/bahasa-tubuh", label: "Bahasa Tubuh" },
   { href: "/peribahasa", label: "Peribahasa" },
+  { href: "/analisis-otak", label: "Analisis Otak" },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
