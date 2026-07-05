@@ -53,13 +53,13 @@ export default function DashboardPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
+        <div className="animate-in">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--strophe-gold)]">Selamat datang kembali</p>
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">{data.user?.name ?? "—"}</h1>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-4">
-          <Card className="flex items-center gap-4">
+          <Card className="flex items-center gap-4 card-elevated animate-in stagger-1">
             <TurnArc progress={coreProgressToCheckpoint} size={80} strokeWidth={7}>
               <span className="font-[family-name:var(--font-instrument)] text-xl font-bold">{coreTrack?.currentLevel ?? 1}</span>
             </TurnArc>
@@ -71,7 +71,7 @@ export default function DashboardPage() {
             </div>
           </Card>
 
-          <Card>
+          <Card className="card-elevated animate-in stagger-2">
             <p className="text-xs text-[var(--strophe-text-muted)] uppercase tracking-wider mb-1">Mental Score</p>
             <p className="font-[family-name:var(--font-instrument)] text-3xl font-bold">
               {data.mentalScore.mentalScore}
@@ -80,7 +80,7 @@ export default function DashboardPage() {
             <p className="text-xs text-[var(--strophe-text-muted)] mt-1">Streak: {data.mentalScore.streakDays} hari</p>
           </Card>
 
-          <Card>
+          <Card className="card-elevated animate-in stagger-3">
             <p className="text-xs text-[var(--strophe-text-muted)] uppercase tracking-wider mb-1">Diamond Checkpoint Terakhir</p>
             <p className="font-[family-name:var(--font-instrument)] text-3xl font-bold text-[var(--strophe-diamond)]">
               {data.diamond?.highestPassedCheckpoint ?? 0}
@@ -110,13 +110,13 @@ export default function DashboardPage() {
 
         <div className="grid sm:grid-cols-2 gap-4">
           <Link href="/sesi-inti">
-            <Card className="hover:border-[var(--strophe-gold)] transition-colors cursor-pointer h-full">
+            <Card className="card-glow hover:bg-[var(--strophe-surface-hover)] transition-all duration-200 cursor-pointer h-full animate-in stagger-4">
               <h3 className="font-[family-name:var(--font-display)] font-semibold mb-1">Sesi Inti Hari Ini</h3>
               <p className="text-sm text-[var(--strophe-text-muted)]">Disiplin, insting, ketelitian, mental tangguh, percaya diri.</p>
             </Card>
           </Link>
           <Link href="/skill/daya-ingat">
-            <Card className="hover:border-[var(--strophe-gold)] transition-colors cursor-pointer h-full">
+            <Card className="card-glow hover:bg-[var(--strophe-surface-hover)] transition-all duration-200 cursor-pointer h-full animate-in stagger-5">
               <h3 className="font-[family-name:var(--font-display)] font-semibold mb-1">Memory Vault</h3>
               <p className="text-sm text-[var(--strophe-text-muted)]">Review materi yang jatuh tempo hari ini.</p>
             </Card>
@@ -127,7 +127,7 @@ export default function DashboardPage() {
           {data.tracks
             .filter((t) => t.track !== "core")
             .map((t) => (
-              <div key={t.track} className="flex justify-between border-b border-[var(--strophe-border)] py-2">
+              <div key={t.track} className="flex justify-between border-b border-[var(--strophe-border)] py-2 px-2 -mx-2 rounded-md hover:bg-[var(--strophe-surface-hover)] transition-colors duration-150">
                 <span className="text-[var(--strophe-text-muted)]">{TRACK_LABELS[t.track] ?? t.track}</span>
                 <span className="font-[family-name:var(--font-instrument)]">Lv {t.currentLevel}</span>
               </div>

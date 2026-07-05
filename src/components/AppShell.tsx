@@ -70,10 +70,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  "whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors",
+                  "whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-all duration-150",
                   active
                     ? "bg-[var(--strophe-gold)]/15 text-[var(--strophe-gold-bright)] font-medium"
-                    : "text-[var(--strophe-text-muted)] hover:text-[var(--strophe-text)]"
+                    : "text-[var(--strophe-text-muted)] hover:text-[var(--strophe-text)] hover:bg-[var(--strophe-surface-hover)]"
                 )}
               >
                 {item.label}

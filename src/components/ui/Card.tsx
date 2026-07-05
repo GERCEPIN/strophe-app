@@ -27,7 +27,7 @@ export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElem
     <input
       className={clsx(
         "w-full rounded-md border border-[var(--strophe-border-strong)] bg-[var(--strophe-bg-elevated)] px-3.5 py-2.5 text-[var(--strophe-text)] placeholder:text-[var(--strophe-text-faint)]",
-        "focus:border-[var(--strophe-gold)] outline-none transition-colors",
+        "hover:border-[var(--strophe-gold-dim)] focus:border-[var(--strophe-gold)] outline-none transition-colors duration-150",
         className
       )}
       {...props}
@@ -40,7 +40,7 @@ export function Textarea({ className, ...props }: TextareaHTMLAttributes<HTMLTex
     <textarea
       className={clsx(
         "w-full rounded-md border border-[var(--strophe-border-strong)] bg-[var(--strophe-bg-elevated)] px-3.5 py-2.5 text-[var(--strophe-text)] placeholder:text-[var(--strophe-text-faint)]",
-        "focus:border-[var(--strophe-gold)] outline-none transition-colors resize-y",
+        "hover:border-[var(--strophe-gold-dim)] focus:border-[var(--strophe-gold)] outline-none transition-colors duration-150 resize-y",
         className
       )}
       {...props}
