@@ -17,6 +17,14 @@ dist-ssr
 .env.local
 *.pem
 
+# Python (idx-bot/)
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.sqlite3
+.pytest_cache/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

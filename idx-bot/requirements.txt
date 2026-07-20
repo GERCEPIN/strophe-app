@@ -1,0 +1,7 @@
+yfinance>=0.2.40
+pandas>=2.0
+numpy>=1.26
+discord.py>=2.4
+APScheduler>=3.10
+python-dotenv>=1.0
+pytest>=8.0
